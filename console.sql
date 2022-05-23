@@ -57,9 +57,44 @@ insert into school (school_id, name) values (2, 'SST');
 insert into school (school_id, name) values (3, 'SSH');
 
 insert into major (major_id, name, school_id) values (1, 'Computer Science', 1);
-insert into major (major_id, name) values (2, 'Mathematics', 2);
-insert into major (major_id, name) values (3, 'Physics', 2);
-insert into major (major_id, name) values (3, 'History', 3);
+insert into major (major_id, name, school_id) values (2, 'Mathematics', 2);
+insert into major (major_id, name, school_id) values (3, 'Physics', 2);
+insert into major (major_id, name, school_id) values (4, 'History', 3);
+
+insert into course (course_id, name, major_id) values (1, 'Programing Languages', 1);
+insert into course (course_id, name, major_id) values (2, 'Operating Systems', 1);
+insert into course (course_id, name, major_id) values (3, 'Abstract Algebra', 2);
+insert into course (course_id, name, major_id) values (4, 'Astronomy', 3);
+insert into course (course_id, name, major_id) values (5, 'Astrophysics', 3);
+insert into course (course_id, name, major_id) values (6, 'History of Kazakhstan', 4);
+
+
+select * from school;
+select * from major;
+select * from course;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*create table teacher_course (
     CONSTRAINT fk_major
