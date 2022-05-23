@@ -6,37 +6,35 @@ create table school (
 create table major (
     major_id Integer primary key not null,
     name varchar(255),
-    CONSTRAINT fk_school
-        FOREIGN KEY(school_id)
-            REFERENCES school(school_id)
+    school_id INTEGER,
+    FOREIGN KEY(school_id)
+        REFERENCES school(school_id)
 );
 
 create table Course(
     course_id INTEGER primary key not null,
     name varchar(255),
+    major_id integer,
     CONSTRAINT fk_major
         FOREIGN KEY(major_id)
             REFERENCES major(major_id)
 );
 
-
-
 create table teacher (
-    teacher_id Integer not null,
+    teacher_id Integer primary key not null,
     firstname varchar(255),
     lastname varchar(255),
     dob DATE,
     nationality varchar(255),
     email varchar(255),
-    CONSTRAINT pk_teacher primary key (teacher_id),
+    major_id integer,
     CONSTRAINT fk_major
         FOREIGN KEY(major_id)
             REFERENCES major(major_id)
 );
 
-
 create table student (
-    student_id Integer not null,
+    student_id Integer primary key null,
     firstname varchar(255),
     lastname varchar(255),
     dob Date,
@@ -44,7 +42,8 @@ create table student (
     nationality varchar(255),
     email varchar(255),
     year_of_study Integer,
-    CONSTRAINT pk_student primary key (student_id),
+    teacher_id integer,
+    major_id integer,
     CONSTRAINT fk_teacher
         FOREIGN KEY(teacher_id)
             REFERENCES teacher(teacher_id),
