@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/university</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="wwanpexp@batyr.db.elephantsql.com" uuid="eb27a378-bc34-4d61-b51b-96b15fa0cddd">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://batyr.db.elephantsql.com:5432/wwanpexp</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
