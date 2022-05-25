@@ -175,9 +175,9 @@ select count(s.firstname), s.firstname from student s group by s.firstname havin
 
 
 
+UPDATE student s SET year_of_study = 2 from major m where m.major_id = s.major_id and m.name = 'Computer Science';
 
-
-
+UPDATE student SET year_of_study = 3 where gender = 'female';
 
 
 
