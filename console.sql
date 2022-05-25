@@ -1,6 +1,27 @@
+drop table student;
+drop table teacher;
+
 create table school (
     school_id INTEGER PRIMARY KEY not null,
     name varchar(255)
+);
+
+create table class (
+    class_id integer primary key not null,
+    name varchar(255),
+    class_year integer
+);
+
+create table schedule (
+    schedule_id integer primary key not null,
+    course_id integer,
+    class_id integer,
+    CONSTRAINT fk_course
+        FOREIGN KEY(course_id)
+            REFERENCES course(course_id),
+    CONSTRAINT fk_class
+        FOREIGN KEY(class_id)
+            REFERENCES class(class_id)
 );
 
 create table major (
@@ -11,13 +32,24 @@ create table major (
         REFERENCES school(school_id)
 );
 
-create table Course(
+create table course(
     course_id INTEGER primary key not null,
     name varchar(255),
     major_id integer,
     CONSTRAINT fk_major
         FOREIGN KEY(major_id)
             REFERENCES major(major_id)
+);
+
+create table teacher_course (
+    teacher_id integer,
+    course_id integer,
+    CONSTRAINT fk_course
+        FOREIGN KEY(course_id)
+            REFERENCES course(course_id),
+    CONSTRAINT fk_teacher
+        FOREIGN KEY(teacher_id)
+            REFERENCES teacher(teacher_id)
 );
 
 create table teacher (
@@ -42,11 +74,11 @@ create table student (
     nationality varchar(255),
     email varchar(255),
     year_of_study Integer,
-    teacher_id integer,
     major_id integer,
-    CONSTRAINT fk_teacher
-        FOREIGN KEY(teacher_id)
-            REFERENCES teacher(teacher_id),
+    class_id integer,
+    CONSTRAINT fk_class
+        FOREIGN KEY(class_id)
+            REFERENCES class(class_id),
     CONSTRAINT fk_major
         FOREIGN KEY(major_id)
             REFERENCES major(major_id)
@@ -68,6 +100,9 @@ insert into course (course_id, name, major_id) values (4, 'Astronomy', 3);
 insert into course (course_id, name, major_id) values (5, 'Astrophysics', 3);
 insert into course (course_id, name, major_id) values (6, 'History of Kazakhstan', 4);
 
+insert into class (class_id, name, class_year) values (1, 'EAP13', 1);
+insert into class (class_id, name, class_year) values (2, 'Computer Science', 4);
+
 insert into teacher (teacher_id, firstname, lastname, dob, nationality, email, major_id)
 values (1, 'Askar', 'Boranbayev', '1970-01-01', 'Kazakh', 'askar.boranbayev@gmail.com', 1);
 
@@ -83,35 +118,26 @@ values (4, 'Ken', 'Tyson', '1970-01-01', 'American', 'ken.smith@gmail.com', 4);
 insert into teacher (teacher_id, firstname, lastname, dob, nationality, email, major_id)
 values (5, 'Ken', 'Tyson', '2007-01-01', 'American', 'ken.smith@gmail.com', 4);
 
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
+
+
+insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, class_id, major_id)
 values (1, 'Makhambet', 'Torezhan', '1970-01-01', 'male', 'Kazakh', 'mtorezhan@gmail.com', 4, 1, 1);
 
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
+insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, class_id, major_id)
 values (2, 'Ali', 'Maksut', '1970-01-01', 'male', 'Kazakh', 'ali@gmail.com', 4, 2, 2);
 
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
-values (3, 'Adam', 'Smith', '1970-01-01', 'male', 'Kazakh', 'adam@gmail.com', 3, 2, 3);
+insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, class_id, major_id)
+values (5, 'Nurdaulet', 'Jerry', '1970-01-01', 'male', 'US American', 'tom.jerry@gmail.com', 1, 1, 4);
 
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
-values (4, 'Tom', 'Jerry', '1970-01-01', 'male', 'US American', 'tom.jerry@gmail.com', 1, 4, 4);
+insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, class_id, major_id)
+values (6, 'Nursultan', 'Jerry', '1970-01-01', 'male', 'US American', 'tom.jerry@gmail.com', 1, 2, 3);
 
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
-values (5, 'Nurdaulet', 'Jerry', '1970-01-01', 'male', 'US American', 'tom.jerry@gmail.com', 1, 4, 4);
+insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, class_id, major_id)
+values (7, 'Alibek', 'Jerry', '1970-01-01', 'male', 'US American', 'tom.jerry@gmail.com', 1, 1, 4);
 
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
-values (6, 'Nursultan', 'Jerry', '1970-01-01', 'male', 'US American', 'tom.jerry@gmail.com', 1, 4, 3);
+insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, class_id, major_id)
+values (8, 'Alice', 'Jerry', '1970-01-01', 'female', 'US American', 'tom.jerry@gmail.com', 1, 2, 4);
 
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
-values (7, 'Alibek', 'Jerry', '1970-01-01', 'male', 'US American', 'tom.jerry@gmail.com', 1, 3, 4);
-
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
-values (8, 'Alice', 'Jerry', '1970-01-01', 'female', 'US American', 'tom.jerry@gmail.com', 1, 3, 4);
-
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
-values (9, 'Clara', 'Jerry', '1970-01-01', 'female', 'US American', 'tom.jerry@gmail.com', 1, 3, 4);
-
-insert into student (student_id, firstname, lastname, dob, gender, nationality, email, year_of_study, teacher_id, major_id)
-values (10, 'Clara', 'Tom', '1970-01-01', 'female', 'US American', 'tom.jerry@gmail.com', 1, 3, 4);
 
 select * from school;
 select * from major;
